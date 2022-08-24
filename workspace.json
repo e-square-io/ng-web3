@@ -1,5 +1,27 @@
 {
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
-  "projects": {}
+  "projects": {},
+  "generators": {
+    "@nrwl/angular:application": {
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress",
+      "strict": true,
+      "style": "scss",
+      "prefix": "w3"
+    },
+    "@nrwl/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "strict": true,
+      "style": "scss",
+      "prefix": "w3",
+      "buildable": true
+    },
+    "@nrwl/angular:component": {
+      "style": "scss",
+      "changeDetection": "OnPush"
+    }
+  }
 }
