@@ -37,3 +37,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+.angular
+.env
+/dev-apps/**/cache
+/dev-apps/**/artifacts
+/dev-apps/**/contract-types
+/dev-apps/**/src/environments/contract-address.ts
