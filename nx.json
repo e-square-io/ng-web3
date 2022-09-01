@@ -27,7 +27,6 @@
       "linter": "eslint",
       "unitTestRunner": "jest",
       "strict": true,
-      "style": "scss",
       "prefix": "w3",
       "buildable": true
     },

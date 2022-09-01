@@ -1,1 +1,15 @@
+<header *ngIf="ethereumProvider.state$ | async as ethState">
+  <button *ngIf="ethState.accounts.length > 0" (click)="getBalance()">
+    Get Balance
+  </button>
+  <div class="currentNetwork">
+    {{ ethState.currentNetwork?.name }}
+  </div>
+  <button
+    (click)="ethereumProvider.connect()"
+    [disabled]="ethereumProvider.connectionButtonDisabled$ | async"
+  >
+    {{ currentAccount$ | async }}
+  </button>
+</header>
 <router-outlet></router-outlet>

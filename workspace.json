@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "dev-app": "dev-apps/dev-app",
-    "dev-app-e2e": "dev-apps/dev-app-e2e"
+    "dev-app-e2e": "dev-apps/dev-app-e2e",
+    "ethers": "libs/ethers"
   }
 }
