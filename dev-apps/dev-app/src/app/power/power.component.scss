@@ -1,0 +1,17 @@
+.current {
+  border: 1px solid rgba(1, 81, 116, 0.667);
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.power-form {
+  label {
+    min-width: 120px;
+    display: block;
+  }
+
+  input {
+    width: 100%;
+  }
+}

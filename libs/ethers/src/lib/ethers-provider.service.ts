@@ -1,5 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
-import { providers, utils } from 'ethers';
+import { TransactionReceipt } from '@ethersproject/abstract-provider';
+import { BaseProvider, ExternalProvider, Web3Provider } from '@ethersproject/providers';
+import { utils } from 'ethers';
 import {
   BehaviorSubject,
   combineLatest,
@@ -8,6 +10,7 @@ import {
   from,
   map,
   Observable,
+  of,
   Subject,
   switchMap,
   take,
@@ -21,18 +24,20 @@ import {
   EthereumProviderState,
   getNetwork,
   Network,
+  TransactionResponse,
 } from './entities';
+import { hexStringNormalization } from './utils';
 
 declare global {
   interface Window {
-    ethereum?: providers.BaseProvider & providers.ExternalProvider & { isConnected: () => boolean };
+    ethereum?: BaseProvider & ExternalProvider & { isConnected: () => boolean };
   }
 }
 
 @Injectable({
   providedIn: 'root',
 })
-export class EthereumProvider {
+export class EthersProvider {
   private _ethereum = typeof window?.ethereum !== 'undefined' ? window.ethereum : undefined;
   private state = createInitialEthereumProviderState();
   private readonly stateSubject$ = new BehaviorSubject<EthereumProviderState>(this.state);
@@ -61,11 +66,11 @@ export class EthereumProvider {
     return !!this._ethereum;
   }
 
-  get provider(): providers.Web3Provider | undefined {
-    return this._ethereum ? new providers.Web3Provider(this._ethereum) : undefined;
+  get provider(): Web3Provider | undefined {
+    return this._ethereum ? new Web3Provider(this._ethereum) : undefined;
   }
 
-  constructor(ngZone: NgZone) {
+  constructor(private readonly ngZone: NgZone) {
     ngZone.runOutsideAngular(() => {
       this._ethereum?.on('connect', (conn: ConnectInfo) =>
         ngZone.run(() => {
@@ -89,13 +94,13 @@ export class EthereumProvider {
         }),
       );
     });
-    timer(500, 1)
+    timer(1000, 1)
       .pipe(
         take(1),
         switchMap(() => (this.state.ready ? EMPTY : combineLatest([this.getAccounts(), this.getNetwork()]))),
       )
       .subscribe();
-    this.ready$.pipe(switchMap(() => this.getAccounts())).subscribe();
+    this.ready$.pipe(switchMap(() => combineLatest([this.getAccounts(), this.getNetwork()]))).subscribe();
   }
 
   connect(): void {
@@ -153,6 +158,42 @@ export class EthereumProvider {
     return from(this.provider?.getBalance(address || this.state.accounts[0])).pipe(
       map(res => parseFloat(utils.formatEther(res))),
     );
+  }
+
+  getTransaction(transactionHash: string): Observable<TransactionResponse> {
+    if (!this.provider) {
+      throw new Error(`No ethereum provider found. Can't connect to network.`);
+    }
+
+    return from(this.provider.getTransaction(hexStringNormalization(transactionHash)));
+  }
+
+  getTransactionReceipt(transactionHash: string): Observable<TransactionReceipt> {
+    if (!this.provider) {
+      throw new Error(`No ethereum provider found. Can't connect to network.`);
+    }
+
+    transactionHash = hexStringNormalization(transactionHash);
+
+    return from<Promise<TransactionReceipt | null>>(this.provider.getTransactionReceipt(transactionHash)).pipe(
+      switchMap(receipt => (receipt === null ? this.waitForTransactionConfirmation(transactionHash) : of(receipt))),
+    );
+  }
+
+  waitForTransactionConfirmation(transactionHash: string): Observable<TransactionReceipt> {
+    transactionHash = hexStringNormalization(transactionHash);
+    const transactionReceipt$ = new Subject<TransactionReceipt>();
+
+    this.ngZone.runOutsideAngular(() => {
+      this.provider?.once(transactionHash, transactionReceipt => {
+        this.ngZone.run(() => {
+          transactionReceipt$.next(transactionReceipt);
+          transactionReceipt$.complete();
+        });
+      });
+    });
+
+    return transactionReceipt$;
   }
 
   private stateUpdate(state: Partial<EthereumProviderState>): void {

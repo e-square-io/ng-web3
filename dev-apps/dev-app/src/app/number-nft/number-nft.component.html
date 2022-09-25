@@ -1,0 +1,44 @@
+<div class="wrapper">
+  <div class="controls">
+    <button (click)="alwaysFailRequire()">Fail Reqiure</button>
+    <button (click)="alwaysFailRevert()">Fail Revert</button>
+  </div>
+  <div class="content">
+    <div class="form">
+      <h2>Mint</h2>
+      <form
+        class="mint-form"
+        action="."
+        [formGroup]="mintForm"
+        (ngSubmit)="mint()"
+      >
+        <div class="form-row">
+          <label for="number">Number</label>
+          <input type="number" id="number" formControlName="num" />
+        </div>
+        <div class="form-row">
+          <button type="submit">Mint</button>
+        </div>
+      </form>
+    </div>
+    <div class="form">
+      <h2>Get Token</h2>
+      <form
+        class="get-token-form"
+        action="."
+        [formGroup]="getTokenForm"
+        (ngSubmit)="getToken()"
+      >
+        <div class="form-row">
+          <label for="id">ID</label>
+          <input type="number" id="id" formControlName="id" />
+        </div>
+        <div class="form-row">
+          <button type="submit">Get Token</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- *ngIf="vm$ | async as vm" -->

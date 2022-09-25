@@ -1,1 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  height: 100vh;
+}
+
+h2 {
+  margin-bottom: 1rem;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.controls {
+  margin-bottom: 1rem;
+
+  button {
+    margin: 0 0.25rem;
+  }
+}
+
+.content {
+  padding: 0 1rem 3rem;
+  flex: 1 1 0%;
+  position: relative;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}

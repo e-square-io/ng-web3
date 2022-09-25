@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { EthereumProvider } from '@ng-web3/ethers';
+import { EthersProvider } from '@ng-web3/ethers';
 import { filter, map } from 'rxjs';
+
+import { InfoService } from './info.service';
+import { NumberNftService } from './number-nft.service';
 
 @Component({
   selector: 'w3-root',
@@ -9,15 +12,19 @@ import { filter, map } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  readonly currentAccount$ = this.ethereumProvider.state$.pipe(
+  readonly currentAccount$ = this.ethersProvider.state$.pipe(
     map(state => (state.accounts.length ? state.accounts[0] : 'Connect')),
   );
 
-  constructor(readonly ethereumProvider: EthereumProvider) {
-    ethereumProvider.error$.pipe(filter(Boolean)).subscribe(err => console.log(`Error: ${err?.message}`));
+  constructor(
+    readonly numberNftService: NumberNftService,
+    readonly ethersProvider: EthersProvider,
+    readonly infoService: InfoService,
+  ) {
+    ethersProvider.error$.pipe(filter(Boolean)).subscribe(err => console.log(`Error: ${err?.message}`));
   }
 
   getBalance(): void {
-    this.ethereumProvider.getBalance().subscribe(console.log);
+    this.ethersProvider.getBalance().subscribe(console.log);
   }
 }

@@ -1,15 +1,35 @@
-<header *ngIf="ethereumProvider.state$ | async as ethState">
-  <button *ngIf="ethState.accounts.length > 0" (click)="getBalance()">
-    Get Balance
-  </button>
-  <div class="currentNetwork">
-    {{ ethState.currentNetwork?.name }}
-  </div>
-  <button
-    (click)="ethereumProvider.connect()"
-    [disabled]="ethereumProvider.connectionButtonDisabled$ | async"
-  >
-    {{ currentAccount$ | async }}
-  </button>
-</header>
-<router-outlet></router-outlet>
+<div class="wrapper">
+  <header class="main-header" *ngIf="ethersProvider.state$ | async as ethState">
+    <nav class="navigation">
+      <a routerLink="/transactions/transaction-response"
+        >Transaction Response</a
+      >
+      <a routerLink="/transactions/transaction-receipt">Transaction Receipt</a>
+      <a routerLink="/power">Power</a>
+      <a routerLink="/number-nft">NFT</a>
+    </nav>
+    <span class="spacer"></span>
+    <button *ngIf="ethState.accounts.length > 0" (click)="getBalance()">
+      Get Balance
+    </button>
+    <div class="currentNetwork" *ngIf="ethState.currentNetwork">
+      <span>{{ ethState.currentNetwork.name }}</span>
+      <span>{{ ethState.currentNetwork.chainId }}</span>
+    </div>
+    <button
+      (click)="ethersProvider.connect()"
+      [disabled]="ethersProvider.connectionButtonDisabled$ | async"
+    >
+      {{ currentAccount$ | async }}
+    </button>
+  </header>
+  <main>
+    <router-outlet></router-outlet>
+    <div class="info" *ngIf="infoService.info$ | async as infoMessage">
+      <p>{{ infoMessage }}</p>
+    </div>
+    <div class="info" *ngIf="infoService.error$ | async as errorMessage">
+      <p>{{ errorMessage }}</p>
+    </div>
+  </main>
+</div>

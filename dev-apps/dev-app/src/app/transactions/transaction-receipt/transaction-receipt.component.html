@@ -1,0 +1,13 @@
+<section class="top">
+  <w3-hash-input
+    (valueChange)="transactionRequest$.next($event)"
+  ></w3-hash-input>
+</section>
+<section class="content-wrapper">
+  <div class="content" *ngIf="transactionResponse$ | async as tx; else noData">
+    {{ tx | json }}
+  </div>
+  <ng-template #noData>
+    <p>No Data</p>
+  </ng-template>
+</section>

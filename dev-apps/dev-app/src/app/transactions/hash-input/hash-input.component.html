@@ -1,0 +1,11 @@
+<form action="." [formGroup]="form" (ngSubmit)="submit()">
+  <div class="form-row">
+    <input
+      type="text"
+      formControlName="hash"
+      name="hash"
+      placeholder="Transaction hash"
+    />
+    <button type="submit" [disabled]="form.invalid">Find</button>
+  </div>
+</form>

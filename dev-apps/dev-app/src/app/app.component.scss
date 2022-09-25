@@ -1,0 +1,41 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-header {
+  display: flex;
+  width: 100%;
+  padding: 0 1.5rem;
+  height: 4rem;
+  align-items: center;
+  box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 18px #0000001f;
+
+  .navigation {
+    display: flex;
+
+    a {
+      display: block;
+      margin: 0 0.5rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+}
+
+main {
+  padding-top: 1rem;
+  flex: 1 1 0%;
+  position: relative;
+
+  .info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 1rem;
+  }
+}

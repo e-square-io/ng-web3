@@ -1,0 +1,34 @@
+<div class="wrapper" *ngIf="vm$ | async as vm">
+  <div class="controls">
+    <button (click)="getCurrentPowerState()">Get Current Power</button>
+    <button (click)="incPowerNumber()">Inc Power Number</button>
+  </div>
+  <div class="content">
+    <div class="current">
+      <h2>Update Power State</h2>
+      <form
+        class="power-form"
+        action="."
+        [formGroup]="form"
+        (ngSubmit)="updatePowerState()"
+      >
+        <div class="form-row">
+          <label for="powerNumber">Power Number:</label>
+          <input type="text" id="powerNumber" formControlName="powerNumber" />
+        </div>
+        <div class="form-row">
+          <label for="powerPhrase">Power Phrase:</label>
+          <input type="text" id="powerPhrase" formControlName="powerPhrase" />
+        </div>
+        <div class="form-row">
+          <button type="submit">Update</button>
+        </div>
+      </form>
+    </div>
+    <div class="current" *ngIf="vm.powerState as powerState">
+      <h2>Current Power State</h2>
+      <p>Power Number: {{ powerState.powerNumber }}</p>
+      <p>Power Phrase: {{ powerState.powerPhrase }}</p>
+    </div>
+  </div>
+</div>

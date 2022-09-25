@@ -14,6 +14,10 @@ export const CHAINLIST: Record<number, { name: string; currency: string }> = {
     name: 'Ethereum Mainnet',
     currency: 'ETH',
   },
+  5: {
+    name: 'Goerli Test Network',
+    currency: 'GoerliETH',
+  },
   56: {
     name: 'Binance Smart Chain Mainnet',
     currency: 'BNB',
