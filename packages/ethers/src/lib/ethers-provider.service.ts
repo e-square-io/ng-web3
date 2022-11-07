@@ -34,9 +34,7 @@ declare global {
   }
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class EthersProvider {
   private _ethereum = typeof window?.ethereum !== 'undefined' ? window.ethereum : undefined;
   private state = createInitialEthereumProviderState();

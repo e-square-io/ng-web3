@@ -1,10 +1,14 @@
+import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { EthersProvider, getTransactionResult } from '@ng-web3/ethers';
 import { map, Subject, switchMap } from 'rxjs';
 
 import { NUMBERNFT_ABI } from '../../../artifacts/ts/5';
+import { HashInputComponent } from '../hash-input/hash-input.component';
 
 @Component({
+  standalone: true,
+  imports: [NgIf, AsyncPipe, JsonPipe, HashInputComponent],
   selector: 'w3-transaction-receipt',
   templateUrl: './transaction-receipt.component.html',
   styleUrls: ['./transaction-receipt.component.scss'],

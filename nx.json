@@ -21,17 +21,21 @@
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress",
       "strict": true,
-      "prefix": "w3"
+      "prefix": "w3",
+      "standalone": true
     },
     "@nrwl/angular:library": {
       "linter": "eslint",
       "unitTestRunner": "jest",
       "strict": true,
       "prefix": "w3",
-      "buildable": true
+      "buildable": true,
+      "publishable": true,
+      "standalone": true
     },
     "@nrwl/angular:component": {
       "style": "scss",
+      "standalone": true,
       "changeDetection": "OnPush"
     }
   },
@@ -39,7 +43,19 @@
     "defaultCollection": "@nrwl/angular"
   },
   "workspaceLayout": {
-    "appsDir": "dev-apps"
+    "appsDir": "dev-apps",
+    "libsDir": "packages"
   },
-  "defaultProject": "dev-app"
+  "defaultProject": "dev-app",
+  "targetDefaults": {
+    "e2e": {
+      "inputs": ["default", "^default"]
+    },
+    "test": {
+      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
+    },
+    "lint": {
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+    }
+  }
 }

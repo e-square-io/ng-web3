@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ng-web3/ethers": ["libs/ethers/src/index.ts"]
+      "@ng-web3/ethers": ["packages/ethers/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

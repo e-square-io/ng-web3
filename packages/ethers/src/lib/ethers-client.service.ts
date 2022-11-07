@@ -12,9 +12,7 @@ import { ArgumentType, EthersHandler, EthersRequest, EthersResponse, RequestOpti
  * `Read` method can return observable of different types depending on
  * signatures. `Write` method always returns observable of `EthersResponse`.
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class EthersClient {
   constructor(private readonly handler: EthersHandler) {}
 

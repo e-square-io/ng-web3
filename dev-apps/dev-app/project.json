@@ -18,7 +18,15 @@
           "dev-apps/dev-app/src/assets"
         ],
         "styles": ["dev-apps/dev-app/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "allowedCommonJsDependencies": [
+          "bn.js",
+          "aes-js",
+          "scrypt-js",
+          "js-sha3",
+          "bech32",
+          "hash.js"
+        ]
       },
       "configurations": {
         "production": {
@@ -82,7 +90,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/dev-apps/dev-app"],
+      "outputs": ["{workspaceRoot}/coverage/dev-apps/dev-app"],
       "options": {
         "jestConfig": "dev-apps/dev-app/jest.config.ts",
         "passWithNoTests": true

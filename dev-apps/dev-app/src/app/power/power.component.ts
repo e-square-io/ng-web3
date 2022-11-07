@@ -1,5 +1,6 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BehaviorSubject, tap } from 'rxjs';
 
 import { INITIAL_POWER_NUMBER, INITIAL_POWER_PHRASE, PowerState } from '../entities';
@@ -12,6 +13,8 @@ interface PowerViewModel {
 type PowerStateForm = Record<keyof PowerState, FormControl>;
 
 @Component({
+  standalone: true,
+  imports: [NgIf, AsyncPipe, ReactiveFormsModule],
   selector: 'w3-power',
   templateUrl: './power.component.html',
   styleUrls: ['./power.component.scss'],

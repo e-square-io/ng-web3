@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { NumberNftService } from '../number-nft.service';
 
 @Component({
+  standalone: true,
+  imports: [ReactiveFormsModule],
   selector: 'w3-number-nft',
   templateUrl: './number-nft.component.html',
   styleUrls: ['./number-nft.component.scss'],

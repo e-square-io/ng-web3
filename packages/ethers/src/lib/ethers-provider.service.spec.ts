@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EthereumProvider } from './ethereum-provider.service';
+import { EthersProvider } from './ethers-provider.service';
 
 describe('EthereumProviderService', () => {
-  let service: EthereumProvider;
+  let service: EthersProvider;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(EthereumProvider);
+    service = TestBed.inject(EthersProvider);
   });
 
   it('should be created', () => {

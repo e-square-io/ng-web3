@@ -5,7 +5,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/ethers"],
+      "outputs": ["{workspaceRoot}/dist/libs/ethers"],
       "options": {
         "project": "libs/ethers/ng-package.json"
       },
@@ -21,7 +21,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/ethers"],
+      "outputs": ["{workspaceRoot}/coverage/libs/ethers"],
       "options": {
         "jestConfig": "libs/ethers/jest.config.ts",
         "passWithNoTests": true

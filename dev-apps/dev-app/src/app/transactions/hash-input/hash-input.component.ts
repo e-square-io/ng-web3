@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 interface FormData {
   hash: FormControl<string | null>;
 }
 
 @Component({
+  standalone: true,
+  imports: [ReactiveFormsModule],
   selector: 'w3-hash-input',
   templateUrl: './hash-input.component.html',
   styleUrls: ['./hash-input.component.scss'],
